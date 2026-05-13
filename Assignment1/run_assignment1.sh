@@ -23,8 +23,8 @@ echo "Starting RMI server..."
 java Server &
 sleep 3
 
-echo "Running client with test data..."
-echo -e "3\n5" | java Client
+echo "Running RMI Calculator Client..."
+java Client
 
 echo ""
 echo "Assignment 1 completed!"

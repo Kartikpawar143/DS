@@ -9,32 +9,29 @@ fi
 
 cd "$(dirname "$0")"
 
+# Set JAVA_HOME and classpath
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export CLASSPATH=.:$JAVA_HOME/lib/tools.jar
+
 echo "Generating CORBA stubs..."
-idlj -fall ReverseModule.idl
+$JAVA_HOME/bin/idlj -fall ReverseModule.idl
 
 echo "Compiling Java files..."
-javac *.java ReverseModule/*.java 2>/dev/null
+$JAVA_HOME/bin/javac -cp $CLASSPATH *.java ReverseModule/*.java
 
 echo "Starting ORB daemon..."
-orbd -ORBInitialPort 1050 &
+$JAVA_HOME/bin/orbd -ORBInitialPort 1050 &
 sleep 2
 
 echo "Starting CORBA server..."
-java ReverseServer -ORBInitialPort 1050 -ORBInitialHost localhost &
+$JAVA_HOME/bin/java -cp $CLASSPATH ReverseServer -ORBInitialPort 1050 -ORBInitialHost localhost &
 sleep 3
 
-echo "Running demo..."
+echo "Running CORBA String Reversal Client..."
 echo ""
 echo "=== CORBA String Reversal Demo ==="
 
-echo "Test 1: 'Hello'"
-echo "Hello" | java ReverseClient -ORBInitialPort 1050 -ORBInitialHost localhost
-
-echo "Test 2: 'World'"  
-echo "World" | java ReverseClient -ORBInitialPort 1050 -ORBInitialHost localhost
-
-echo "Test 3: '12345'"
-echo "12345" | java ReverseClient -ORBInitialPort 1050 -ORBInitialHost localhost
+$JAVA_HOME/bin/java -cp $CLASSPATH ReverseClient -ORBInitialPort 1050 -ORBInitialHost localhost
 
 echo ""
 echo "Demo completed!"

@@ -21,11 +21,15 @@ python3 simple_server.py &
 SERVER_PID=$!
 sleep 2
 
+echo "Enter number of clients (1-5):"
+read num_clients
+
 echo ""
 echo "Starting clients..."
-python3 simple_client.py 1 &
-sleep 1
-python3 simple_client.py 2 &
+for ((i=1; i<=num_clients; i++)); do
+    python3 simple_client.py $i &
+    sleep 1
+done
 sleep 10
 
 echo ""

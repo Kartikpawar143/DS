@@ -17,7 +17,7 @@ mpicc demo_assignment3.c -o demo
 
 echo "Running MPI parallel sum calculation..."
 echo ""
-./demo
+mpirun -np 4 ./demo
 
 echo ""
 echo "Assignment 3 completed successfully!"
