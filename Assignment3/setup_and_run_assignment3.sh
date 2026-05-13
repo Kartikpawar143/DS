@@ -17,6 +17,11 @@ mpicc demo_assignment3.c -o demo
 
 echo "Running MPI parallel sum calculation..."
 echo ""
+echo "Please provide input when prompted:"
+echo "1. First enter the number of elements (e.g., 8)"
+echo "2. Then enter the array elements separated by spaces (e.g., 1 2 3 4 5 6 7 8)"
+echo ""
+
 mpirun -np 4 ./demo
 
 echo ""

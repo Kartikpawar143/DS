@@ -1,13 +1,25 @@
 #!/bin/bash
 
-# Check Java version
-JAVA_VERSION=$(java -version 2>&1 | head -n1 | cut -d'"' -f2 | cut -d'.' -f1-2)
-if [[ "$JAVA_VERSION" != "1.8" ]]; then
-    echo "Error: Java 8 is required for CORBA support"
-    echo "Current Java version: $JAVA_VERSION"
-    echo "Please install Java 8 (OpenJDK 8)"
-    exit 1
+# Find Java 8 installation
+JAVA8_HOME=$(find /usr/lib/jvm -name "java-8-openjdk*" -type d 2>/dev/null | head -1)
+
+if [ -z "$JAVA8_HOME" ]; then
+    echo "Java 8 not found. Installing OpenJDK 8..."
+    sudo apt update
+    sudo apt install -y openjdk-8-jdk
+    JAVA8_HOME=$(find /usr/lib/jvm -name "java-8-openjdk*" -type d 2>/dev/null | head -1)
+    
+    if [ -z "$JAVA8_HOME" ]; then
+        echo "Error: Failed to install Java 8"
+        exit 1
+    fi
 fi
+
+# Use Java 8 for this session
+export JAVA_HOME="$JAVA8_HOME"
+export PATH="$JAVA_HOME/bin:$PATH"
+
+echo "Using Java 8 from: $JAVA_HOME"
 
 cd "$(dirname "$0")"
 

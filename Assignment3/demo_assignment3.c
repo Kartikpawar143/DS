@@ -11,7 +11,9 @@ int main(int argc, char* argv[]) {
 
     if (rank == 0) {
         printf("=== MPI Parallel Sum Calculation ===\n");
+        printf("Enter number of elements: ");
         scanf("%d", &n);
+        printf("Enter %d elements: ", n);
         for(int i = 0; i < n; i++) {
             scanf("%d", &num[i]);
         }
