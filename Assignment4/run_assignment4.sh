@@ -1,6 +1,13 @@
 #!/bin/bash
 
-cd "../Assignment 4"
+# Install Python if not present
+if ! command -v python3 &> /dev/null; then
+    echo "Installing Python..."
+    sudo apt update
+    sudo apt install -y python3
+fi
+
+cd "$(dirname "$0")"
 
 echo "=== Berkeley Clock Synchronization Demo ==="
 echo ""

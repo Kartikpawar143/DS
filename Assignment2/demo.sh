@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"
+
 echo "=== CORBA String Reversal Service Demo ==="
 echo ""
 echo "Testing with different strings:"

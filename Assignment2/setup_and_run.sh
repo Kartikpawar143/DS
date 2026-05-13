@@ -1,12 +1,13 @@
 #!/bin/bash
 
-echo "Installing OpenJDK 8..."
-sudo apt update -qq
-sudo apt install -y openjdk-8-jdk > /dev/null 2>&1
+# Install Java if not present
+if ! command -v javac &> /dev/null; then
+    echo "Installing Java..."
+    sudo apt update
+    sudo apt install -y default-jdk
+fi
 
-echo "Setting Java 8 as default..."
-echo "2" | sudo update-alternatives --config java > /dev/null 2>&1
-echo "2" | sudo update-alternatives --config javac > /dev/null 2>&1
+cd "$(dirname "$0")"
 
 echo "Generating CORBA stubs..."
 idlj -fall ReverseModule.idl

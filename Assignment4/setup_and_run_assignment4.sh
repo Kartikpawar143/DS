@@ -1,9 +1,13 @@
 #!/bin/bash
 
-cd "../Assignment 4"
+# Install Python if not present
+if ! command -v python3 &> /dev/null; then
+    echo "Installing Python..."
+    sudo apt update
+    sudo apt install -y python3 python3-dateutil
+fi
 
-echo "Installing Python dateutil..."
-sudo apt install -y python3-dateutil > /dev/null 2>&1
+cd "$(dirname "$0")"
 
 echo "=== Assignment 4: Berkeley Clock Synchronization Demo ==="
 echo ""

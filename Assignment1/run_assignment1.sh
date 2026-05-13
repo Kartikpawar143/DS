@@ -1,6 +1,13 @@
 #!/bin/bash
 
-cd "../Assignment 1"
+# Install Java if not present
+if ! command -v javac &> /dev/null; then
+    echo "Installing Java..."
+    sudo apt update
+    sudo apt install -y default-jdk
+fi
+
+cd "$(dirname "$0")"
 
 echo "=== RMI Calculator Demo ==="
 echo ""

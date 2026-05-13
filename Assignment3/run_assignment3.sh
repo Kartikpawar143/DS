@@ -1,6 +1,13 @@
 #!/bin/bash
 
-cd "../Assignment 3"
+# Install MPI if not present
+if ! command -v mpicc &> /dev/null; then
+    echo "Installing MPI..."
+    sudo apt update
+    sudo apt install -y mpich
+fi
+
+cd "$(dirname "$0")"
 
 echo "=== MPI Parallel Sum Demo ==="
 echo ""
